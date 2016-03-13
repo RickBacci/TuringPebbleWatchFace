@@ -4,6 +4,9 @@
 
 static Window      *s_window;
 static Layer       *s_hands_layer, *s_simple_bg_layer;
+
+static GPath *s_tick_paths[NUM_CLOCK_TICKS];
+
 static BitmapLayer *s_bitmap_layer;
 
 static GBitmap     *s_turing_bitmap;
