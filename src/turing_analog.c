@@ -27,7 +27,6 @@ static void bg_update_proc(Layer *layer, GContext *ctx) {
 
 static void hands_update_proc(Layer *layer, GContext *ctx) {
   GRect bounds  = layer_get_bounds(layer);
-  GPoint center = grect_center_point(&bounds);
 
   time_t now    = time(NULL);
   struct tm *t  = localtime(&now);
