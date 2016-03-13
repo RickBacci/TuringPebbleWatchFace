@@ -1,4 +1,5 @@
 #include "simple_analog.h"
+
 #include "pebble.h"
 
 static Window      *s_window;
@@ -23,7 +24,7 @@ static void bg_update_proc(Layer *layer, GContext *ctx) {
 
 static void hands_update_proc(Layer *layer, GContext *ctx) {
   GRect bounds  = layer_get_bounds(layer);
- // GPoint center = grect_center_point(&bounds);
+  GPoint center = grect_center_point(&bounds);
 
   time_t now    = time(NULL);
   struct tm *t  = localtime(&now);
@@ -35,7 +36,7 @@ static void hands_update_proc(Layer *layer, GContext *ctx) {
   gpath_rotate_to(s_hour_arrow, (TRIG_MAX_ANGLE * (((t->tm_hour % 12) * 6) + (t->tm_min / 10))) / (12 * 6));
   gpath_draw_filled(ctx, s_hour_arrow);
   gpath_draw_outline(ctx, s_hour_arrow);
-  
+
   gpath_rotate_to(s_minute_arrow, TRIG_MAX_ANGLE * t->tm_min / 60);
   gpath_draw_filled(ctx, s_minute_arrow);
   gpath_draw_outline(ctx, s_minute_arrow);
@@ -48,7 +49,7 @@ static void hands_update_proc(Layer *layer, GContext *ctx) {
 static void window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
   GRect bounds        = layer_get_bounds(window_layer);
-  
+
   #if defined(PBL_ROUND)
     s_turing_bitmap   = gbitmap_create_with_resource(RESOURCE_ID_TURING_BLACK_WHITE_BG);
     s_bitmap_layer    = bitmap_layer_create(GRect(-2, -2, 185, 185));
@@ -56,10 +57,10 @@ static void window_load(Window *window) {
     s_turing_bitmap   = gbitmap_create_with_resource(RESOURCE_ID_TURING_BLACK_BW);
     s_bitmap_layer    = bitmap_layer_create(GRect(0, 0, 144, 168));
   #endif
-  
+
   bitmap_layer_set_bitmap(s_bitmap_layer, s_turing_bitmap);
+
   layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(s_bitmap_layer));
-  
 
   s_simple_bg_layer = layer_create(bounds);
   layer_set_update_proc(s_simple_bg_layer, bg_update_proc);
@@ -68,6 +69,7 @@ static void window_load(Window *window) {
 
   s_hands_layer       = layer_create(bounds);
   layer_set_update_proc(s_hands_layer, hands_update_proc);
+
   layer_add_child(window_layer, s_hands_layer);
 }
 
@@ -88,7 +90,7 @@ static void init() {
   // init hand paths
   s_minute_arrow      = gpath_create(&MINUTE_HAND_POINTS);
   s_hour_arrow        = gpath_create(&HOUR_HAND_POINTS);
-  
+
   Layer *window_layer = window_get_root_layer(s_window);
   GRect bounds        = layer_get_bounds(window_layer);
   GPoint center       = grect_center_point(&bounds);
