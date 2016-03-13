@@ -3,27 +3,12 @@
 #include "pebble.h"
 
 static Window      *s_window;
-static Layer       *s_hands_layer, *s_simple_bg_layer;
-
-static GPath *s_tick_paths[NUM_CLOCK_TICKS];
-
+static Layer       *s_hands_layer;
 static BitmapLayer *s_bitmap_layer;
 
 static GBitmap     *s_turing_bitmap;
 static GPath       *s_minute_arrow,
                    *s_hour_arrow;
-
-static void bg_update_proc(Layer *layer, GContext *ctx) {
-  graphics_context_set_fill_color(ctx, GColorBlack);
-  graphics_fill_rect(ctx, layer_get_bounds(layer), 0, GCornerNone);
-  graphics_context_set_fill_color(ctx, GColorWhite);
-  for (int i = 0; i < NUM_CLOCK_TICKS; ++i) {
-    const int x_offset = PBL_IF_ROUND_ELSE(18, 0);
-    const int y_offset = PBL_IF_ROUND_ELSE(6, 0);
-    gpath_move_to(s_tick_paths[i], GPoint(x_offset, y_offset));
-    gpath_draw_filled(ctx, s_tick_paths[i]);
-  }
-}
 
 static void hands_update_proc(Layer *layer, GContext *ctx) {
   GRect bounds  = layer_get_bounds(layer);
@@ -67,11 +52,6 @@ static void window_load(Window *window) {
   bitmap_layer_set_bitmap(s_bitmap_layer, s_turing_bitmap);
 
   layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(s_bitmap_layer));
-
-  s_simple_bg_layer = layer_create(bounds);
-  layer_set_update_proc(s_simple_bg_layer, bg_update_proc);
-
-  layer_add_child(window_layer, s_simple_bg_layer);
 
   s_hands_layer       = layer_create(bounds);
   layer_set_update_proc(s_hands_layer, hands_update_proc);

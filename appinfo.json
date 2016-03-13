@@ -10,8 +10,8 @@
     "resources": {
         "media": [
             {
-                "file": "images/turing-black-bw.png",
-                "name": "TURING_BLACK_BW",
+                "file": "images/turing-white-color.png",
+                "name": "TURING_WHITE_BLACK_BG",
                 "targetPlatforms": null,
                 "type": "bitmap"
             },
@@ -29,8 +29,8 @@
                 "type": "bitmap"
             },
             {
-                "file": "images/turing-white-color.png",
-                "name": "TURING_WHITE_BLACK_BG",
+                "file": "images/turing-black-bw.png",
+                "name": "TURING_BLACK_BW",
                 "targetPlatforms": null,
                 "type": "bitmap"
             }
