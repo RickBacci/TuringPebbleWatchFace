@@ -1,5 +1,8 @@
 #pragma once
+
 #include "pebble.h"
+
+#define NUM_CLOCK_TICKS 11
 
 static const GPathInfo MINUTE_HAND_POINTS = {
   6, (GPoint []) {
