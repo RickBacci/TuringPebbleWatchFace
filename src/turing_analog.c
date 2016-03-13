@@ -43,10 +43,8 @@ static void window_load(Window *window) {
 
   #if defined(PBL_ROUND)
     s_turing_bitmap   = gbitmap_create_with_resource(RESOURCE_ID_TURING_BLACK_WHITE_BG);
-  //  s_bitmap_layer    = bitmap_layer_create(GRect(-2, -2, 185, 185));
   #else
     s_turing_bitmap   = gbitmap_create_with_resource(RESOURCE_ID_TURING_BLACK_BW);
- //   s_bitmap_layer    = bitmap_layer_create(GRect(0, 0, 144, 168));
   #endif
 
   s_bitmap_layer    = bitmap_layer_create(bounds);
