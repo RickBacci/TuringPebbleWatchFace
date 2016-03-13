@@ -48,6 +48,10 @@ static void hands_update_proc(Layer *layer, GContext *ctx) {
   graphics_fill_rect(ctx, GRect(bounds.size.w / 2 - 1, bounds.size.h / 2 - 1, 3, 3), 0, GCornerNone);
 }
 
+static void handle_second_tick(struct tm *tick_time, TimeUnits units_changed) {
+  layer_mark_dirty(window_get_root_layer(s_window));
+}
+
 static void window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
   GRect bounds        = layer_get_bounds(window_layer);
