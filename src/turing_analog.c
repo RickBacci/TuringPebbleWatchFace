@@ -3,7 +3,6 @@
 #include "pebble.h"
 
 static Window      *s_window;
-<<<<<<< HEAD
 static Layer       *s_hands_layer;
 static BitmapLayer *s_bitmap_layer;
 
