@@ -94,12 +94,17 @@ static void init() {
   GPoint center       = grect_center_point(&bounds);
   gpath_move_to(s_hour_arrow, center);
   gpath_move_to(s_minute_arrow, center);
+
+  tick_timer_service_subscribe(SECOND_UNIT, handle_second_tick);
 }
 
 static void deinit() {
   gpath_destroy(s_minute_arrow);
   gpath_destroy(s_hour_arrow);
   gbitmap_destroy(s_turing_bitmap);
+
+  tick_timer_service_unsubscribe();
+
   window_destroy(s_window);
 }
 
